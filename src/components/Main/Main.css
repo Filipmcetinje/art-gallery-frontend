@@ -1,0 +1,13 @@
+.main {
+  padding: 24px;
+}
+
+.main__title {
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.main__subtitle {
+  font-size: 14px;
+  color: #555;
+}

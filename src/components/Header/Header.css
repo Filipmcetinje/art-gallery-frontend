@@ -1,0 +1,119 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 20px 32px;
+  background: #cee996;
+
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.header__nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.header__title {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  min-width: 0;
+  text-decoration: none;
+  color: #0e8dbc;
+}
+
+.header__title-art {
+  font-size: 38px;
+  font-weight: 900;
+  letter-spacing: 0.2px;
+}
+
+.header__title-rest {
+  font-size: 28px;
+  font-weight: 800;
+  opacity: 0.85;
+}
+
+.header__link {
+  text-decoration: none;
+  color: #333;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  padding: 8px 10px;
+  border-radius: 100px;
+
+  transition: opacity 0.2s ease;
+}
+
+.header__link:hover {
+  opacity: 0.7;
+}
+
+.header__link_active {
+  color: #111;
+  background: #22c55e;
+}
+
+.header__auth {
+  display: flex;
+  gap: 12px;
+}
+
+.header__button {
+  height: 40px;
+  padding: 0 14px;
+
+  border-radius: 12px;
+  cursor: pointer;
+
+  border: 5px dotted rgba(179, 12, 182, 0.608);
+  background: rgb(125, 224, 20);
+
+  font-size: 14px;
+  font-weight: 700;
+  color: #111;
+
+  transition: opacity 0.2s ease;
+}
+
+.header__button:hover {
+  opacity: 0.85;
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 16px 20px; /* ✅ smaller side padding */
+    flex-direction: column; /* ✅ stack */
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .header__nav {
+    width: 100%;
+    gap: 10px;
+  }
+
+  .header__auth {
+    width: 100%;
+    flex-wrap: wrap; /* ✅ buttons wrap instead of overflow */
+    gap: 10px;
+  }
+
+  .header__button {
+    flex: 1; /* ✅ buttons can shrink */
+    min-width: 140px; /* optional: keeps them readable */
+  }
+
+  .header__title-art {
+    font-size: 28px; /* ✅ scale down */
+  }
+
+  .header__title-rest {
+    font-size: 20px; /* ✅ scale down */
+  }
+}
