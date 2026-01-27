@@ -1,0 +1,11 @@
+.profile {
+  padding: 24px;
+}
+
+.profile__title {
+  margin: 0 0 16px;
+}
+
+.profile__text {
+  margin: 0 0 8px;
+}

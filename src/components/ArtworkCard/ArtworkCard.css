@@ -1,0 +1,49 @@
+.artwork-card {
+  list-style: none;
+}
+
+.artwork-card__image {
+  width: 100%;
+  display: block;
+  border-radius: 8px;
+}
+
+.artwork-card__title {
+  margin: 8px 0 4px;
+  font-size: 14px;
+}
+
+.artwork-card__artist {
+  margin: 0;
+  font-size: 12px;
+  color: #444;
+}
+.artwork-card__remove {
+  margin-top: 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #000;
+  background: transparent;
+  cursor: pointer;
+}
+.artwork-card__save {
+  margin-top: 10px;
+  height: 40px;
+  padding: 0 14px;
+
+  border: none;
+  border-radius: 12px;
+
+  background: #82e1c5;
+  color: #900bc0;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.artwork-card__save:hover {
+  opacity: 0.9;
+}
