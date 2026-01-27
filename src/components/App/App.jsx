@@ -21,10 +21,11 @@ import ImagePreviewModal from "../ImagePreviewModal/ImagePreviewModal.jsx";
 function App() {
   const [activeModal, setActiveModal] = useState(null);
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    return Boolean(localStorage.getItem("jwt"));
+  });
 
   const [saved, setSaved] = useState([]);
-
   const [selectedArtwork, setSelectedArtwork] = useState(null);
 
   const handleCardClick = (artwork) => setSelectedArtwork(artwork);
@@ -33,11 +34,6 @@ function App() {
     getSavedArtworks()
       .then((items) => setSaved(items))
       .catch(console.log);
-  }, []);
-
-  useEffect(() => {
-    const token = localStorage.getItem("jwt");
-    if (token) setIsLoggedIn(true);
   }, []);
 
   const openLoginModal = () => setActiveModal("login");
@@ -82,6 +78,7 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Main />} />
+
         <Route
           path="/collection"
           element={
@@ -103,6 +100,7 @@ function App() {
             />
           }
         />
+
         <Route path="/profile" element={<ProfilePage />} />
       </Routes>
 
@@ -113,11 +111,13 @@ function App() {
         onClose={closeModal}
         onAuthSuccess={handleAuthSuccess}
       />
+
       <RegisterModal
         isOpen={activeModal === "register"}
         onClose={closeModal}
         onAuthSuccess={handleAuthSuccess}
       />
+
       <ImagePreviewModal
         artwork={selectedArtwork}
         onClose={() => setSelectedArtwork(null)}

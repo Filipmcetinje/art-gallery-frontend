@@ -1,9 +1,9 @@
 function ProfilePage() {
   return (
-    <section>
-      <h2>Profile</h2>
-      <p>Name: Fake User</p>
-      <p>Email: fake@example.com</p>
+    <section className="profile">
+      <h2 className="profile__title">Profile</h2>
+      <p className="profile__text">Name: Fake User</p>
+      <p className="profile__text">Email: fake@example.com</p>
     </section>
   );
 }
