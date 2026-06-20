@@ -10,7 +10,11 @@ function RegisterModal({ isOpen, onClose, onAuthSuccess }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    register(name, email, password)
+    register({
+      name,
+      email,
+      password,
+    })
       .then(() => authorize(email, password))
       .then(({ token }) => {
         localStorage.setItem("jwt", token);

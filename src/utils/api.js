@@ -1,35 +1,47 @@
-let savedArtworks = [
-  {
-    _id: "fake-save-1",
-    objectID: 45734,
-    title: "Quail and Millet",
-    artistDisplayName: "Kiyohara Yukinobu",
-    primaryImageSmall:
-      "https://images.metmuseum.org/CRDImages/as/web-large/DP251139.jpg",
-  },
-];
+const BASE_URL = "http://localhost:3001";
+
+function checkResponse(res) {
+  if (!res.ok) {
+    return Promise.reject(`Error: ${res.status}`);
+  }
+
+  return res.json();
+}
+
+function getToken() {
+  return localStorage.getItem("jwt");
+}
 
 export function getSavedArtworks() {
-  return new Promise((resolve) => {
-    resolve(savedArtworks);
-  });
+  return fetch(`${BASE_URL}/items`, {
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  }).then(checkResponse);
 }
 
 export function saveArtwork(artwork) {
-  return new Promise((resolve) => {
-    const savedItem = {
-      ...artwork,
-      _id: `fake-save-${Date.now()}`,
-    };
-
-    savedArtworks = [savedItem, ...savedArtworks];
-    resolve(savedItem);
-  });
+  return fetch(`${BASE_URL}/items`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${getToken()}`,
+    },
+    body: JSON.stringify({
+      objectID: artwork.objectID,
+      title: artwork.title,
+      artistDisplayName: artwork.artistDisplayName || "",
+      objectDate: artwork.objectDate || "",
+      primaryImageSmall: artwork.primaryImageSmall,
+    }),
+  }).then(checkResponse);
 }
 
 export function deleteArtwork(savedId) {
-  return new Promise((resolve) => {
-    savedArtworks = savedArtworks.filter((item) => item._id !== savedId);
-    resolve({ message: "deleted" });
-  });
+  return fetch(`${BASE_URL}/items/${savedId}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  }).then(checkResponse);
 }

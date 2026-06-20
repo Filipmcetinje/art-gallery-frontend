@@ -1,33 +1,55 @@
-const FAKE_TOKEN = "fake-token-123";
+const BASE_URL = "http://localhost:3001";
 
-export function register() {
-  return Promise.resolve({
-    data: {
-      _id: "fake-user-id",
-      name: "Fake User",
-      email: "fake@example.com",
+export function register({ name, email, password }) {
+  return fetch(`${BASE_URL}/signup`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
     },
+    body: JSON.stringify({
+      name,
+      email,
+      password,
+    }),
+  }).then((res) => {
+    if (!res.ok) {
+      return Promise.reject(`Error: ${res.status}`);
+    }
+
+    return res.json();
   });
 }
 
-export function authorize() {
-  return Promise.resolve({ token: FAKE_TOKEN });
+export function authorize(email, password) {
+  return fetch(`${BASE_URL}/signin`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email,
+      password,
+    }),
+  }).then((res) => {
+    if (!res.ok) {
+      return Promise.reject(`Error: ${res.status}`);
+    }
+
+    return res.json();
+  });
 }
 
 export function checkToken(token) {
-  return new Promise((resolve, reject) => {
-    if (token !== FAKE_TOKEN) {
-      reject("Invalid token");
-      return;
+  return fetch(`${BASE_URL}/users/me`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }).then((res) => {
+    if (!res.ok) {
+      return Promise.reject(`Error: ${res.status}`);
     }
 
-    resolve({
-      data: {
-        _id: "fake-user-id",
-        name: "Fake User",
-        email: "fake@example.com",
-      },
-    });
+    return res.json();
   });
 }
 
