@@ -13,7 +13,7 @@ function getToken() {
 }
 
 export function getSavedArtworks() {
-  return fetch(`${BASE_URL}/items`, {
+  return fetch(`${BASE_URL}/artworks`, {
     headers: {
       Authorization: `Bearer ${getToken()}`,
     },
@@ -21,7 +21,7 @@ export function getSavedArtworks() {
 }
 
 export function saveArtwork(artwork) {
-  return fetch(`${BASE_URL}/items`, {
+  return fetch(`${BASE_URL}/artworks`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -38,7 +38,7 @@ export function saveArtwork(artwork) {
 }
 
 export function deleteArtwork(savedId) {
-  return fetch(`${BASE_URL}/items/${savedId}`, {
+  return fetch(`${BASE_URL}/artworks/${savedId}`, {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${getToken()}`,

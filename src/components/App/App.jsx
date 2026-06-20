@@ -18,17 +18,35 @@ import { Routes, Route } from "react-router-dom";
 
 import ImagePreviewModal from "../ImagePreviewModal/ImagePreviewModal.jsx";
 
+import { checkToken } from "../../utils/auth";
+
 function App() {
   const [activeModal, setActiveModal] = useState(null);
 
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
     return Boolean(localStorage.getItem("jwt"));
   });
+  const [currentUser, setCurrentUser] = useState(null);
 
   const [saved, setSaved] = useState([]);
   const [selectedArtwork, setSelectedArtwork] = useState(null);
 
   const handleCardClick = (artwork) => setSelectedArtwork(artwork);
+
+  useEffect(() => {
+    const token = localStorage.getItem("jwt");
+
+    if (!token) {
+      return;
+    }
+
+    checkToken(token)
+      .then((user) => {
+        setCurrentUser(user);
+        setIsLoggedIn(true);
+      })
+      .catch(console.log);
+  }, []);
 
   useEffect(() => {
     getSavedArtworks()
@@ -43,6 +61,7 @@ function App() {
   const handleLogout = () => {
     localStorage.removeItem("jwt");
     setIsLoggedIn(false);
+    setCurrentUser(null);
     closeModal();
   };
 
@@ -101,7 +120,10 @@ function App() {
           }
         />
 
-        <Route path="/profile" element={<ProfilePage />} />
+        <Route
+          path="/profile"
+          element={<ProfilePage currentUser={currentUser} />}
+        />
       </Routes>
 
       <Footer />
