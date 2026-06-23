@@ -1,6 +1,6 @@
 import { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
-import { register, authorize } from "../../utils/auth";
+import { register, authorize, checkToken } from "../../utils/auth";
 
 function RegisterModal({ isOpen, onClose, onAuthSuccess }) {
   const [name, setName] = useState("");
@@ -18,10 +18,13 @@ function RegisterModal({ isOpen, onClose, onAuthSuccess }) {
       .then(() => authorize(email, password))
       .then(({ token }) => {
         localStorage.setItem("jwt", token);
+        return checkToken(token);
+      })
+      .then((user) => {
         setName("");
         setEmail("");
         setPassword("");
-        onAuthSuccess();
+        onAuthSuccess(user);
       })
       .catch(console.log);
   };
