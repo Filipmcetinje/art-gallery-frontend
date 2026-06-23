@@ -65,7 +65,8 @@ function App() {
     closeModal();
   };
 
-  const handleAuthSuccess = () => {
+  const handleAuthSuccess = (user) => {
+    setCurrentUser(user);
     setIsLoggedIn(true);
     closeModal();
   };
