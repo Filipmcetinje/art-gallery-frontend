@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:3001";
+const BASE_URL = "https://art-gallery-backend-oxwr.onrender.com";
 
 export function register({ name, email, password }) {
   return fetch(`${BASE_URL}/signup`, {
